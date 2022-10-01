@@ -9,9 +9,6 @@ main[b-6c2nrbcgof] {
     flex: 1;
 }
 
-.sidebar[b-6c2nrbcgof] {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-}
 
 .top-row[b-6c2nrbcgof] {
     background-color: #f7f7f7;
@@ -115,7 +112,7 @@ main[b-6c2nrbcgof] {
     }
 
     .nav-item[b-73yte7uzm5]  a {
-        color: #d7d7d7;
+        color: blue;
         border-radius: 4px;
         height: 3rem;
         display: flex;
@@ -125,12 +122,12 @@ main[b-6c2nrbcgof] {
 
 .nav-item[b-73yte7uzm5]  a.active {
     background-color: rgba(255,255,255,0.25);
-    color: white;
+    color: darkblue;
 }
 
 .nav-item[b-73yte7uzm5]  a:hover {
     background-color: rgba(255,255,255,0.1);
-    color: white;
+    color: darkslateblue;
 }
 
 @media (min-width: 641px) {

@@ -10,7 +10,9 @@
 
 @if (Competitions == null)
 {
-    <p><em>Loading...</em></p>
+    <div class="container-md">
+        <p><em>Loading...</em></p>
+    </div>
 }
 else
 {
@@ -28,7 +30,7 @@ else
 @if (Competitors == null )
 {
     <div class="container-md">
-        <p><em>Select a competion</em></p>
+        <p><em>Select a competition</em></p>
     </div>
 }
 else
@@ -42,13 +44,10 @@ else
     </div>
 }
 
-
-
 @code {
     private List<Competition>? Competitions;
     private List<string>? Competitors;
     private string Competitor = string.Empty;
-    private Random random = null!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -57,13 +56,17 @@ else
 
     protected async Task OnCompItSelected(ChangeEventArgs e)
     {
-        Competitors = await _competitorsService.GetCompetititors(int.Parse(e.Value.ToString()));
+        if(e != null && !string.IsNullOrEmpty(e.Value?.ToString()))
+            Competitors = await _competitorsService.GetCompetititors(int.Parse(e.Value.ToString()));
     }
 
-    protected async Task GetRandomCompetitor()
+    protected void GetRandomCompetitor()
     {
-        var next = new Random(DateTime.Now.Millisecond).Next(0, Competitors.Count);
-        Competitor = Competitors.ElementAt(next);
-        Competitors.RemoveAt(next);
+        if (Competitors != null)
+        {
+            var next = new Random(DateTime.Now.Millisecond).Next(0, Competitors.Count);
+            Competitor = Competitors.ElementAt(next);
+            Competitors.RemoveAt(next);
+        }
     }
 }

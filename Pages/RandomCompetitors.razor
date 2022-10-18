@@ -17,7 +17,7 @@
 else
 {
     <div class="container-md">
-        <select class="form-control selectpicker" @onchange="OnCompItSelected" disabled="@(!string.IsNullOrEmpty(Competitor))" >
+        <select class="form-control selectpicker" @onchange="OnCompIsSelected" disabled="@(!string.IsNullOrEmpty(Competitor))" >
             <option>--select--</option>
             @foreach (var item in Competitions.OrderBy(t => t.StartDate))
             {
@@ -54,17 +54,17 @@ else
         Competitions = await _competitorsService.GetCompetitions();
     }
 
-    protected async Task OnCompItSelected(ChangeEventArgs e)
+    protected async Task OnCompIsSelected(ChangeEventArgs e)
     {
-        if(e != null && !string.IsNullOrEmpty(e.Value?.ToString()))
-            Competitors = await _competitorsService.GetCompetititors(int.Parse(e.Value.ToString()));
+        if(e.Value != null)
+            Competitors = await _competitorsService.GetCompetititors(Convert.ToInt32(e.Value));    
     }
 
     protected void GetRandomCompetitor()
     {
         if (Competitors != null)
         {
-            var next = new Random(DateTime.Now.Millisecond).Next(0, Competitors.Count);
+            var next = new Random().Next(0, Competitors.Count);
             Competitor = Competitors.ElementAt(next);
             Competitors.RemoveAt(next);
         }

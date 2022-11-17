@@ -17,11 +17,11 @@ public class CompetitorsService: ICompetitiorsService
             operationName = "Competitions",
             variables = new
             {
-                from = DateTime.Now.AddDays(-3).Date.ToString("yyyy-MM-dd")
+                from = DateTime.Now.AddDays(-7).Date.ToString("yyyy-MM-dd")
             },
             query = @$"query Competitions($from: Date!) 
                         {{
-                            competitions(from: $from) 
+                            competitions(from: $from, ) 
                             {{ 
                                 id name startDate endDate 
                             }}
@@ -29,7 +29,7 @@ public class CompetitorsService: ICompetitiorsService
         });
         var competitionsContainer = await result.Content.ReadFromJsonAsync<CompetitionsContainer>();
         if (competitionsContainer != null && competitionsContainer.Data != null && competitionsContainer.Data.Competitions.Any())
-            return competitionsContainer.Data.Competitions.ToList();
+            return competitionsContainer.Data.Competitions.Where(t => t.EndDate < DateTime.Now.AddDays(7)).ToList();
         else
             return await Task.FromResult(new List<Competition>());
     }

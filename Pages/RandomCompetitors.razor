@@ -8,6 +8,7 @@
     <p class="text-body">Get a random competitor from all competitors with minimum one valid result. </p>
 </div>
 
+<div class="d-grid gap-3">
 @if (Competitions == null)
 {
     <div class="container-md">
@@ -17,7 +18,7 @@
 else
 {
     <div class="container-md">
-        <select class="form-control selectpicker" @onchange="OnCompIsSelected" disabled="@(!string.IsNullOrEmpty(Competitor))" >
+        <select class="form-control selectpicker form-control-lg" @onchange="OnCompIsSelected" disabled="@(!string.IsNullOrEmpty(Competitor))" >
             <option>--select--</option>
             @foreach (var item in Competitions.OrderBy(t => t.StartDate))
             {
@@ -40,9 +41,11 @@ else
     </div>
 
     <div class="container-md">
-        <h2>@Competitor</h2>
+        <span style="font-size: 8rem; line-height: 9rem;">@Competitor</span>
     </div>
 }
+
+</div>
 
 @code {
     private List<Competition>? Competitions;
